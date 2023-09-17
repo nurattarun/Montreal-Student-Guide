@@ -1,0 +1,49 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+
+<div class="p-4 border-5 border-gray-300">
+
+    <h1 class="text-2xl font-bold mb-4">Student List</h1>
+
+    <a asp-page="/Create" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg inline-block mb-4">
+        Create Student
+    </a>
+
+    <table class="table-auto">
+        <thead>
+            <tr>
+                <th class="px-4 py-2">Student ID</th>
+                <th class="px-4 py-2">Opus Card Fee</th>
+                <th class="px-4 py-2">Avg Rent</th>
+                <th class="px-4 py-2">Public Library Address</th>
+                <th class="px-4 py-2">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Products)
+            {
+                <tr>
+                    <td class="border px-4 py-2">@item.StudentId</td>
+                    <td class="border px-4 py-2">@item.OpusCardFee</td>
+                    <td class="border px-4 py-2">@item.AvgRent</td>
+                    <td class="border px-4 py-2">@item.PublicLibAdd</td>
+                    <td class="border px-4 py-2">
+                        <a asp-page="/Edit" asp-route-id="@item.StudentId" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg mr-2">
+                            Edit
+                        </a>
+                        <a asp-page="/Delete" asp-route-id="@item.StudentId" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

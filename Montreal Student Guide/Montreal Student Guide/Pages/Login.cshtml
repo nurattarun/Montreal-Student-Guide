@@ -1,0 +1,113 @@
+﻿@page
+@model Montreal_Student_Guide.Pages.LoginModel
+@{
+
+}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f2f2f2;
+		}
+
+		.container {
+			margin: 50px auto;
+			max-width: 500px;
+			background-color: #fff;
+			padding: 30px;
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+			border-radius: 5px;
+		}
+
+		h1 {
+			text-align: center;
+			margin-bottom: 30px;
+			color: #333;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 10px;
+			color: #666;
+		}
+
+		input[type="text"], input[type="password"] {
+			width: 100%;
+			padding: 10px;
+			border-radius: 3px;
+			border: 1px solid #ccc;
+			margin-bottom: 20px;
+			box-sizing: border-box;
+		}
+
+		input[type="submit"] {
+			background-color: #4CAF50;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 3px;
+			cursor: pointer;
+			font-size: 16px;
+			transition: background-color 0.3s ease;
+		}
+
+		input[type="submit"]:hover {
+			background-color: #3e8e41;
+		}
+
+		.error-message {
+			color: red;
+			margin-top: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Login</h1>
+		<form id="login-form">
+			<label for="username">Username:</label>
+			<input type="text" id="username" name="username" required>
+
+			<label for="password">Password:</label>
+			<input type="password" id="password" name="password" required>
+
+			<input type="submit" value="Login">
+		</form>
+		<div id="error-message" class="error-message"></div>
+	</div>
+
+	<script>
+		const form = document.getElementById('login-form');
+		const errorMessage = document.getElementById('error-message');
+
+		form.addEventListener('submit', async (event) => {
+			event.preventDefault();
+			const username = document.getElementById('username').value;
+			const password = document.getElementById('password').value;
+
+			const response = await fetch('https://localhost:7249/api/Login', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					username: username,
+					password: password
+				})
+			});
+
+			if (response.ok) {
+				window.location.href = '/Index';
+			} else {
+				const error = await response.json();
+				errorMessage.innerText = error.errorMessage || 'Invalid username or password.';
+			}
+		});
+	</script>
+</body>
+</html>

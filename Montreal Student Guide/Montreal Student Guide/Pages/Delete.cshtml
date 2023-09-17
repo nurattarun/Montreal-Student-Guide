@@ -1,0 +1,16 @@
+﻿@page
+@model Montreal_Student_Guide.Pages.DeleteModel
+@{
+}
+
+<form method="post">
+    <input asp-for="@Model.Product.StudentId" hidden />
+    <h1>Are you sure you want to delete this Student?</h1>
+    <h2>StudentId: @Model.Product.StudentId</h2>
+    <h2>Opus Card Fee: @Model.Product.OpusCardFee</h2>
+    <h2>Average Rent: @Model.Product.AvgRent</h2>
+    <h2>Public Library Address: @Model.Product.PublicLibAdd</h2>
+    <h2>Category: @Model.Product.Category</h2>
+    <button type="submit" class="btn btn-outline-danger w-50 mt-4">YES</button>
+    <a asp-page="/Index" class="btn btn-outline-primary  w-50 mt-4">NO</a>
+</form>
